@@ -1,6 +1,7 @@
 import { Page, expect } from "@playwright/test";
 import { LoginPage } from "./login.page";
 import type { ConfirmationPage } from "./confirmation.page";
+import { TestCasePage } from "./testcase.page";
 
 export class HomePage{
 
@@ -41,6 +42,20 @@ export class HomePage{
     async logout(): Promise<LoginPage>{
         await this.page.getByRole('link', { name: ' Logout' }).click();
         return new LoginPage(this.page);
+    }
+
+    async goToTestCasePage(): Promise<TestCasePage>{
+           const [newPage] = await Promise.all([
+            this.page.context().waitForEvent('page'),
+            this.page.getByRole('link', { name: ' Test Cases' }).click({modifiers: ["Control"]}),
+    ]);
+    expect(newPage, 'New tab did not open').toBeTruthy();
+
+    // if (!newPage) {
+    //     throw new Error('Failed to open new tab');
+    // }
+
+    return new TestCasePage(newPage);
     }
 
 
