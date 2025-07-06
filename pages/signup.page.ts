@@ -34,7 +34,6 @@ export class SignupPage{
         await this.page.getByRole('button', { name: 'Create Account' }).click();
 
 
-
         return new ConfirmationPage(this.page);
 
     }

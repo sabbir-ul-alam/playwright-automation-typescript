@@ -1,5 +1,5 @@
 import { Page, expect } from "@playwright/test";
-import { LoginPape } from "./login.page";
+import { LoginPage } from "./login.page";
 import type { ConfirmationPage } from "./confirmation.page";
 
 export class HomePage{
@@ -19,21 +19,28 @@ export class HomePage{
         await expect(this.page.getByRole('link', { name: 'Website for automation' })).toBeVisible();
     }
 
-    async goToLogin(): Promise<LoginPape>{
+    async goToLoginPage(): Promise<LoginPage>{
         await this.page.getByRole('link', { name: ' Signup / Login' }).click();
-        return new LoginPape(this.page)
+        return new LoginPage(this.page)
     }
 
-    async isUserLoggedIn(): Promise<void>{
-        await expect(this.page.locator('#header')).toContainText('Logged in as Sabbir');
+    async isUserLoggedIn(userName: String): Promise<void>{
+        await expect(this.page.locator('#header')).toContainText(`Logged in as ${userName}`);
 
     }
 
     async deleteAccount(): Promise<ConfirmationPage>{
         await this.page.getByRole('link', { name: ' Delete Account' }).click();
+        // await this.page.getByRole('listitem').filter({ hasText: 'Delete Account' });
+
         const { ConfirmationPage } = await import('./confirmation.page');
         return new ConfirmationPage(this.page);
 
+    }
+
+    async logout(): Promise<LoginPage>{
+        await this.page.getByRole('link', { name: ' Logout' }).click();
+        return new LoginPage(this.page);
     }
 
 
