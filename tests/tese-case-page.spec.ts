@@ -1,19 +1,16 @@
-import { test as base, expect } from '@playwright/test';
+import { expect } from '@playwright/test';
 import path from 'path';
-import { HomePage } from '../pages/home.page';
+import { homePageFixture} from './helper/homepage'; 
 
 //  Extend the base test to use storageState
-const test = base.extend({
+const test = homePageFixture.extend({
   storageState: path.resolve(__dirname, '../playwright/.auth/user.json'),
 });
 
 test.describe('Authenticated test cases', () => {
-  test('Test Case: 4', async ({ page }) => {
-    const homePage = new HomePage(page);
-    await homePage.visit();
-    await homePage.isHomePageLoaded();
-
-    const testCasePage = await homePage.goToTestCasePage();
+  test('Test Case: 4', async ({ homePage }) => {
+    const validatedHomePage = homePage;
+    const testCasePage = await validatedHomePage.goToTestCasePage();
     await testCasePage.isLoaded();
   });
 });
