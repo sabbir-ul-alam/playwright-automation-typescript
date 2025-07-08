@@ -2,6 +2,7 @@ import { Page, expect } from "@playwright/test";
 import { LoginPage } from "./login.page";
 import type { ConfirmationPage } from "./confirmation.page";
 import { TestCasePage } from "./testcase.page";
+import { ProductPage } from "./product.page";
 
 export class HomePage{
 
@@ -54,12 +55,14 @@ export class HomePage{
     // if (!newPage) {
     //     throw new Error('Failed to open new tab');
     // }
-
     return new TestCasePage(newPage);
+    }
+
+    async gotToProductPage(): Promise<ProductPage>{
+        await this.page.getByRole('link', { name: ' Products' }).click();
+        return new ProductPage(this.page);
     }
 
 
 }
 
-//  await page.goto('/');
-//   await expect(page.getByRole('link', { name: 'Website for automation' })).toBeVisible();
