@@ -3,6 +3,7 @@ import { LoginPage } from "./login.page";
 import type { ConfirmationPage } from "./confirmation.page";
 import { TestCasePage } from "./testcase.page";
 import { ProductPage } from "./product.page";
+import { CartPage } from "./cart.page";
 
 export class HomePage{
 
@@ -61,6 +62,10 @@ export class HomePage{
     async gotToProductPage(): Promise<ProductPage>{
         await this.page.getByRole('link', { name: ' Products' }).click();
         return new ProductPage(this.page);
+    }
+    async goToCartPage(): Promise<CartPage>{
+        await this.page.getByRole('link', { name: ' Cart' }).click();
+        return new CartPage(this.page);
     }
 
 
