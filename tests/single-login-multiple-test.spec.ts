@@ -7,7 +7,9 @@ const test = homePageFixture.extend({
   storageState: path.resolve(__dirname, '../playwright/.auth/user.json'),
 });
 
-test.describe("Test case 5,6: Single login multi test",()=>{
+test.describe.configure({ mode: 'default' });
+
+test.describe("Test case 5,6: Single login multi test",{ tag: '@singleLogin'},()=>{
     //  Extend the base test to use storageState
 
 
