@@ -9,7 +9,9 @@ const test = homePageFixture.extend({
 
 test.describe.configure({ mode: 'default' });
 
-test.describe("Test case 5,6: Single login multi test",{ tag: '@singleLogin'},()=>{
+test.describe("Test case 5,6: Single login multi test",
+    { tag: '@singleLogin'},
+    ()=>{
     //  Extend the base test to use storageState
 
 
@@ -21,7 +23,12 @@ test.describe("Test case 5,6: Single login multi test",{ tag: '@singleLogin'},()
         await cartPage.cartIsNotEmpty();
     })
 
-    test("Test Case 5: Verify persitant cart page after reopenning browser",async ({homePage})=>{
+
+    test("Test Case 5: Verify persitant cart page after reopenning browser",
+        {annotation: [
+            {type: "Session Test", description: "Verify storage state feature"}
+        ]},
+        async ({homePage})=>{
         let cartPage = await homePage.goToCartPage();
         await cartPage.cartIsNotEmpty();
     });
